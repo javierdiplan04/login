@@ -1,0 +1,112 @@
+<html>
+
+<head>
+<title>
+Javier Diplan
+</title>
+
+<style>
+div > .tipo_estilo{
+color: rgb(255, 238, 0);
+background-color: red;
+}
+</style>
+
+<script>
+function formulario(){
+//alert("Hola");
+
+var nombre= document.getElementById("nombre").value;
+var correo= document.getElementById("correo").value;
+var pas1= document.getElementById("pas1").value;
+var pas2= document.getElementById("pas2").value;
+if(nombre=="" || correo=="" )
+{
+        alert("Favor llenar campos Vacios");
+}
+else{
+
+if(pas1==pas2){
+
+var nombre= document.getElementById("nombre").value;
+//var matricula= document.getElementById("matricula").value;
+//var carrera= document.getElementById("carrera").value;
+alert( "Hola "+nombre+" usted Ha sido Registrado");
+}
+else
+{
+    alert( "Contraseñas no coinciden Favor revisar.");
+
+}
+}
+
+}
+
+function calculadora(){
+//alert("Hola");
+
+var n1= document.getElementById("n1").value;
+var n2= document.getElementById("n2").value;
+var res= document.getElementById("res");
+//var resul= document.getElementById.toString()
+var suma=0;
+res.value=+n1 + +n2;
+//res.value(suma);
+//alert(suma);
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+    <center>
+    <table border="0" WIDTH="17%">
+        <thead>
+                <td colspan="2"> <center><h3>BLOG API - Registrase</h3></center></td>
+        </thead>
+     <tbody>
+        <tr>
+                <td colspan="2">Nombre:</td>
+        </tr>
+        <tr>  
+                <td colspan="2"><input size="35" type="text" id="nombre"></td>
+         </tr>
+
+        <tr>
+                <td colspan="2">Email:</td>
+        </tr>
+        <tr>
+                <td colspan="2"><input size="35" type="text" id="correo"></td>
+        </tr>
+
+        <tr>    
+                <td colspan="2">Contraseña</td>
+        </tr>
+
+        <tr>
+                <td colspan="2"><input size="35" type="password" id="pas1"></td>
+        </tr>
+        <tr>    
+            <td colspan="2">Confirmar Contraseña</td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><input size="35" type="password" id="pas2"></td>
+        </tr>
+
+
+            <tr>
+                    <td> <button value="Guardar" onclick="formulario()">Registrarse</button> </td>
+            </tr>    
+
+     </tbody>
+    </table>
+</center>
+
+</body>
+
+
+</html>

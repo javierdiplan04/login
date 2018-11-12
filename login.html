@@ -1,0 +1,91 @@
+<html>
+
+<head>
+<title>
+Javier Diplan
+</title>
+
+<style>
+div > .tipo_estilo{
+color: rgb(255, 238, 0);
+background-color: red;
+}
+</style>
+
+<script>
+function formulario(){
+//alert("Hola");
+
+var nombre= document.getElementById("nombre").value;
+var pas= document.getElementById("pas").value;
+//var carrera= document.getElementById("carrera").value;
+if(pas=="" || nombre=="")
+{
+        alert("Favor completar campos vacios");
+}
+else{
+alert("Bienvenido "+nombre);
+}
+
+}
+
+function calculadora(){
+//alert("Hola");
+
+var n1= document.getElementById("n1").value;
+var n2= document.getElementById("n2").value;
+var res= document.getElementById("res");
+//var resul= document.getElementById.toString()
+var suma=0;
+res.value=+n1 + +n2;
+//res.value(suma);
+//alert(suma);
+
+}
+
+</script>
+
+</head>
+
+<body>
+<center>
+    <table border="0" WIDTH="17%">
+        <thead>
+                <td colspan="2"> <center><h3>BLOG API - LOGIN</h3></center></td>
+               
+        </thead>
+     <tbody>
+         <tr>
+             
+            <td colspan="2">Usuario</td>
+        </tr>
+        <tr>
+             
+                <td colspan="2"><input size="35" type="text" id="nombre"></td>
+            </tr>
+
+        <tr>
+             
+                <td colspan="2">Contraseña</td>
+            </tr>
+
+            <tr>
+             
+                <td colspan="2"><input size="35" type="password" id="pas"></td>
+            </tr>
+
+
+            <tr>
+             <center>
+                    <td> <a href="registrarse.html"> +Registrarte</a></td>
+                    <td> <button value="Guardar" onclick="formulario()">Login</button> </td>
+            </center>
+            </tr>    
+
+     </tbody>
+    </table>
+</center>
+</body>
+
+
+</html>
