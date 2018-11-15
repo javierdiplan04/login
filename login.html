@@ -2,7 +2,7 @@
 
 <head>
 <title>
-Javier Diplan
+Login
 </title>
 
 <style>
@@ -11,26 +11,8 @@ color: rgb(255, 238, 0);
 background-color: red;
 }
 </style>
-
-<script>
-function formulario(){
-//alert("Hola");
-
-var nombre= document.getElementById("nombre").value;
-var pas= document.getElementById("pas").value;
-//var carrera= document.getElementById("carrera").value;
-if(pas=="" || nombre=="")
-{
-        alert("Favor completar campos vacios");
-}
-else{
-alert("Bienvenido "+nombre);
-}
-
-}
-
-</script>
-
+<script src="assets/js/jquery-3.3.1.js"></script>
+<script src="app/login.js"></script>
 </head>
 
 <body>
@@ -47,7 +29,7 @@ alert("Bienvenido "+nombre);
         </tr>
         <tr>
              
-                <td colspan="2"><input size="35" type="text" id="nombre"></td>
+                <td colspan="2"><input size="35" type="text" id="username"></td>
             </tr>
 
         <tr>
@@ -57,14 +39,14 @@ alert("Bienvenido "+nombre);
 
             <tr>
              
-                <td colspan="2"><input size="35" type="password" id="pas"></td>
+                <td colspan="2"><input size="35" type="password" id="password"></td>
             </tr>
 
 
             <tr>
              <center>
                     <td> <a href="registrarse.html"> +Registrarte</a></td>
-                    <td> <button value="Guardar" onclick="formulario()">Login</button> </td>
+                    <td> <button value="Guardar" id="login">Login</button> </td>
             </center>
             </tr>    
 
