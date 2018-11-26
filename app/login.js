@@ -29,7 +29,7 @@ function login()
   .then((response)=>{
     var userdata=JSON.stringify(response);
     localStorage.setItem('Api',userdata);
-    window.location.href="http://localhost/it247/halo/index.html";
+    window.location.href="http://localhost/blogapi/post.html";
 
   })
   //.then(response => console.log('Success:', JSON.stringify(response)))
