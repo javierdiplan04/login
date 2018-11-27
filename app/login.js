@@ -24,12 +24,13 @@ function login()
     body: JSON.stringify(data), // data can be `string` or {object}!
     headers:{
       'Content-Type': 'application/json'
+
     }
   }).then(res => res.json())
   .then((response)=>{
     var userdata=JSON.stringify(response);
     localStorage.setItem('Api',userdata);
-    window.location.href="http://localhost/blogapi/post.html";
+    window.location.href="file:///Users/javierdiplantavarez/Documents/ITLA/JavaScrip/tarea2/post.html";
 
   })
   //.then(response => console.log('Success:', JSON.stringify(response)))
