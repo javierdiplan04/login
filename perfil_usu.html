@@ -10,10 +10,6 @@
     <meta name="author" content="">
 
     <title>Blog Api</title>
-
-     <!-- Animation library for notifications   -->
-     <link href="assets/css/animate.min.css" rel="stylesheet"/>
-
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap core CSS-->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,6 +40,7 @@
       <!-- main css -->
       <link rel="stylesheet" href="assets/css/style.css">
       <link rel="stylesheet" href="assets/css/responsive.css">
+      <script src="app/UserProfile.js"></script>
 
   </head>
 
@@ -121,12 +118,11 @@
             <span>Post</span>
           </a>
         </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="perfil.html">
-                <i class="fas fa-user-circle"></i>
-              <span>Perfil</span>
-            </a>
-          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pages</span>
+          </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">Login Screens:</h6>
             <a class="dropdown-item" href="login.html">Login</a>
@@ -139,42 +135,104 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="nuevo_post.html">
+          <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Nuevo Post</span></a>
+            <span>Charts</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
         </li>
-        <li class="nav-item">
-        <h4><ion-icon name="notifications-outline"></ion-icon> Notificaciones</h4>
-      <div  id="table_noti" class="table-responsive">
-      </li>
       </ul>
 
-      <div id="content-wrapper">
+     
 
-        <div class="container-fluid">
+      <div class="content">
+            
+          <div class="container-fluid">
+              <div class="row">
+                <div id="UserProfile"></div>
+                  <div class="col-lg-8 col-md-7">
+                      <div class="card">
+                              <div id="nuevopost" style="display:none ;">
+                                      <div class="card">
+                                              <div class="header">
+                                                  <h4 class="title">Nueva Publicacion</h4>
+                                              </div>
+                                              <div class="content">
+                                                  <form>
+                                                      <div class="row">
+                                                          <div class="col-md-5">
+                                                              <div class="form-group">
+                                                                  <label>Titulo</label>
+                                                                  <input type="text" id="tituloPost" name="tituloPost" class="form-control border-input"  placeholder="Titulo" >
+                                                              </div>
+                                                          </div>
+                                                          
+                                                      </div>
+                      
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              <div class="form-group">
+                                                                  <label>Tag</label>
+                                                                  <input type="text" id="tagpost" name="tagpost" class="form-control border-input" placeholder="tags" >
+                                                              </div>
+                                                          </div>
+                                                          
+                                                      </div>
+                      
+                                                    
+                      
+                                                      <div class="row">
+                                                          <div class="col-md-12">
+                                                              <div class="form-group">
+                                                                  <label>Contenido</label>
+                                                                  <textarea id="contendiopost" name="contendiopost" rows="5" class="form-control border-input" placeholder="Here can be your description" ></textarea>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="text-center">
+                                                          <button type="button" onclick="addPost();" class="btn btn-info btn-fill btn-wd">Publicar</button>
+                                                      </div>
+                                                      <div class="clearfix"></div>
+                                                  </form>
+                                              </div>
+                                          </div>
+                                      </div>
+                          <div class="header">
+                              <h4 class="title">Publicaciones</h4>
+                          </div>
+                          <div class="content">
+                                  
+                              <div id="ListPost"></div>
+                          </div>
+                      </div>
+                  </div>
 
-        <section class="blog_area p_120">
-            <div class="container">
-                
-                    <div class="col-lg-20">
-          <div class="post" id="post"></div>
+
+              </div>
+          </div>
+      </div>
+
+      <script src="../app/view_user.js"></script>
+  <script>
+      $(document).ready(function () {
+        $('#nav_mis_post').click(function (e) {
+          let id = JSON.parse(localStorage.getItem('datosuser')).id;
+          localStorage.setItem('user_sel', id);
+        });
+        $('#si_cerrar_sesion').click(function (e) {
+          logout();
+        });
+      });
+    </script>
+
+       <!-- Fin datos de perfil-->
 
           
-        
-</div>  
-</div> 
-</section>
 
-
-          
-
-          <script src="app/post.js"></script>
-          <script src="assets/js/funciones.js"></script>
+      
 
         
         <!-- /.container-fluid -->

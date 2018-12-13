@@ -47,42 +47,10 @@ function post()
     }).then(res => res.json())
        .then((response)=>{
         
-        //var userdata=JSON.stringify(response);
-        //localStorage.setItem('Api',userdata);
-         //window.location.href="http://localhost/blogapi/post.html";
          let obj=Object.keys(response).map(element=>{
      let {title,body,userName,userEmail, views, likes, liked, comments,userId,id, tags, createdAt}=response[element];
      let fecha= new Date(createdAt).toLocaleDateString("es-RD");
-     //return `<h4>${title}</h4><br> <h4>${body}</h4> <br> <h4>${userName}</h4><br>`
-     /*return `
-     <table width="100%" border="0">
-     <tbody>
-       <tr>
-         <td colspan="2" style="font-style: inherit; font-family: 'Corbel Bold', Corbel, 'Corbel Bold Italic', 'Corbel Italic';"><button type="button" class="btn btn-default">
-         <span class="fas fa-star"></span>
-       </button><strong>${title}</strong></td>
-         <td><button type="button" class="btn btn-default">
-         <span class="fas fa-share-alt-square"></span>
-       </button></td>
-         <td>&nbsp;</td>
-       </tr>
-       <tr>
-         <td colspan="3">By: ${userName}<span style="font-style: oblique; color: #007FFF;"> ${userEmail}</span></td>
-         <td>25 de Marzo, 2018</td>
-       </tr>
-       <tr>
-         <td colspan="4">${body}</td>
-       </tr>
-       <tr>
-         <td>&nbsp;</td>
-         <td>&nbsp;</td>
-         <td>&nbsp;</td>
-         <td style="text-align: right"><button type="button" class="btn btn-default">
-         <span class="far fa-star"></span>
-       </button></td>
-       </tr>
-     </tbody>
-   </table>`*/
+    
 
    return `<!--================Blog Area =================-->
    
@@ -94,6 +62,7 @@ function post()
                          </div>
                          <div class="blog_text">
              <div class="blog_text_inner">
+              
                <div class="cat">
                  <a class="cat_btn" href="#"><i class="fas fa-tag"></i> ${tags}</a>
                  <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> ${fecha}</a>
@@ -101,21 +70,38 @@ function post()
                  <a href="#"><i class="fas fa-eye" aria-hidden="true"></i> <span id="articulo-view-${id}"> ${views} </span></a>
                  <i class="fas fa-star" aria-hidden="true"></i> <span id="articulo-like-${id}">${likes} </span>
                </div>
-               <a href="#"><h4>${title}</h4></a><a href="#"><h7>By ${userName} - ${userEmail}</h7></a>
-               <p class="category"><a onclick="ShowUser(${userId});">By: ${userName} (${userEmail})</a></p>
-               <br></br>
+               <p><strong>Titulo: ${title}</strong></p>
+               <p class="category"><a onclick="ShowUser(${userId});" >By: ${userName} (${userEmail})</a></p>
                <p>${body}</p>
                
                <button class="btn btn-small btn-link " onclick="Like(${liked},${id});">${(liked)?'<i class="fa fa-star"></i>':'<i class="fa fa-star-o"></i>'} </button>  ${likes} Me gustas
-               <div id="ListadoComentario${id}"></div>
-         
-       </button>
-       
-             </div>
+               
+              
+            
+               <div class="pull-right" >  
+               <button class="btn btn-small btn-link" onclick=" GetlistComment(${id});"> 
+               <i class="fa fa-comments text-danger"></i>
+                Ver Comentarios </button>  </div>
 
+
+             </div>
+             <div id="ListadoComentario${id}"></div>
+             
            </div>
+           
+           
                        </article>   
-                       </div></div>
+                       </div>
+                       <div class="content">
+                   <div class="form-group">
+                       <label>Agregar comentario: </label>
+                       <textarea id="comentar${id}" rows="1" class="form-control border-input">                                     
+                       </textarea>
+                    <br>
+                       <button onclick="PostComment(${id});" class="btn btn-small btn-link">Comentar</button>
+                   </div>               
+               </div>
+                       </div>
                        <br></br>
        
              
@@ -163,13 +149,42 @@ function Like(like,id)
 
 // fin dar likes
 
+function AddComment(id)
+{ 
+   var style=$(`#agregarComentario${id}`).css("display");
+   (style=="none") ? $(`#agregarComentario${id}`).css("display","block"): $(`#agregarComentario${id}`).css("display","none");
+
+ 
+}
+
+//funcion para agregar comentario a un post especifico.
+function PostComment(idPost)
+{   let comentario=$(`#comentar${idPost}`).val();
+var data={body:comentario};
+var userdata=JSON.parse(localStorage.getItem('Api'));
+console.log(userdata.token);
+fetch(`http://68.183.27.173:8080/post/${idPost}/comment`,{
+    method: 'POST',
+    body:JSON.stringify(data),
+    headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${userdata.token}`
+
+    }
+})
+ .then((response)=>{
+    GetlistPost();
+ }).catch(error=>console.log("Error:",error));
+    
+}
+
 //mostrar usuario
 
 function  ShowUser(userId)
 {   var URL =location.protocol + "//" +location.host; 
     localStorage.setItem('userId',userId);
     
-     window.location.href=URL+"home/Users/javierdiplantavarez/Documents/ITLA/JavaScrip/tarea2/perfil.html";
+     window.location.href=URL+"home/Users/javierdiplantavarez/Documents/ITLA/JavaScrip/tarea2/perfil_usu.html";
     
 }
 //funcion para agregar y quitar like
@@ -200,15 +215,14 @@ function Like(like,id)
 
 
 //comentarios
-
-function GetlistComment(id)
+function GetlistComment(idPost)
 {    
     
       if(localStorage.getItem('Api'))
         {   
              var userdata=JSON.parse(localStorage.getItem('Api'));
         
-            fetch(`http://68.183.27.173:8080/post/${id}/comment`,{
+            fetch(`http://68.183.27.173:8080/post/${idPost}/comment`,{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json',
@@ -223,14 +237,14 @@ function GetlistComment(id)
                {
                var data=`  <hr>
                <div class="header">
-               <small> <i class="fa fa-user"></i> <a onclick="ShowUser(${response[i].userId});" >By:${response[i].userName}</a></samll>  
+               <small> <i class="fas fa-user-circle"></i> <a onclick="ShowUser(${response[i].userId});" >Por:${response[i].userName}</a></samll>  
                </div>
                <div class="content">
             <div class="form-group">
-           <label>Comentario</label>
-                                                <textarea rows="1" class="form-control border-input" placeholder="Here can be your description" value="Mike">
+           <label>Comentario: </label>
+                                                
                                                 ${response[i].body}
-                                                </textarea>
+                                                
                                             </div>
                   
                </div>`;
@@ -279,13 +293,57 @@ function wsConnect() {
                 break;
             case "view-comment":
                 // TODO: cambias likes por views
-                $('#articulo-comment-' + data.postId).text(data.likes);
+                $('#articulo-comment-' + data.postId).text(data.comments);
                 break;
+
+                case "user-connected":
+                tipo="success";
+                notificacion=data.userEmail;
+                mensaje="Se ha conectado";
+                mostrar_notificaciones(tipo,notificacion,mensaje);
+                break;
+        
+              case "logged":
+              tipo="success";
+              notificacion=data.userName;
+              mensaje="Se ha logueado";
+              mostrar_notificaciones(tipo,notificacion,mensaje);
+                break;
+        
+              case "disconnected":
+              tipo="danger";
+              notificacion=data.userName;
+              mensaje="Se ha desconectado";
+              mostrar_notificaciones(tipo,notificacion,mensaje);
+              break;
+        
+                case "new-post":
+                tipo="info";
+                notificacion=data.userName;
+                mensaje=" ha creado un nuevo post.";
+                mostrar_notificaciones(tipo,notificacion,mensaje);
+                break; 
+
+          
 
         }
     };
 }
 
+
+function mostrar_notificaciones(tipo,notificacion,mensaje)
+{  
+    $.notify({
+        icon: 'ti-gift',
+        message: "<b>Blog Api</b> - "+notificacion+" " +mensaje
+
+    },{
+        type: `${tipo}`,
+        timer: 4000
+    });
+   
+    
+}
 
 // fin funcion websocket
 
